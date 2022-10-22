@@ -36,16 +36,11 @@ pipeline {
      }
      stage('Pull & Run App') {
          steps {
-            
-            agent {
-                 docker {
-                   image                 'pontoriero3/addressbook-1'
-                   reuseNode              true
-                   registryUrl           'https://registry.hub.docker.com'
-                   registryCredentialsId 'docker-hub-credentials'
-                 }
-               image.run()
-               }
+              script {
+                  docker.image('pontoriero3/addressbook-1').inside {
+                    git "https://github.com/pontoriero3/addressbook.git"
+                  }
+              }
          }
      }  
   }
