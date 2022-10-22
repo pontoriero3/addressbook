@@ -15,14 +15,12 @@ pipeline {
      }
      stage('Build image') {         
         steps {
-          docker.build("pontoriero3/addressbook-jenkins")    
+          sh "docker build ~/CICD-PipelineProject/docker-im -t myaddressbook:latest"  
        }
      }
      stage('Push image') {
         steps {
-          docker.withRegistry('https://registry.hub.docker.com', 'git') {            
-          app.push("pontoriero3/myaddressbook")            
-          app.push("latest")        
+          sh "docker push pontoriero3/myaddressbook"
           }    
         }
      }
