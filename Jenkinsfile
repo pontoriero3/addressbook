@@ -1,7 +1,5 @@
 pipeline {
-   environment { 
-     dockerImage = ''
-   }
+   
    agent any
    
    stages {
@@ -31,7 +29,7 @@ pipeline {
          steps {
               script {
                   docker.withRegistry('https://registry.hub.docker.com') {
-                  dockerImage.push()
+                  app.push()
                   }
               }
          }
