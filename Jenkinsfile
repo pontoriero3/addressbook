@@ -27,12 +27,10 @@ pipeline {
      }
      stage('Deploy') {
          steps {
-             script{
-                 docker.withRegistry('https://registry.hub.docker.com', 'git') {
-                 app.push("${env.BUILD_NUMBER}")
-                 app.push("latest")
-                 }
-             }
+              script {
+                  docker.withRegistry( '', registryCredential ) {
+                  dockerImage.push()
+              }
          }
      }
   }
