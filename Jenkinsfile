@@ -13,5 +13,15 @@ pipeline {
          sh "mvn compile"
        }
      }
-   }
+      stage('Build image') {         
+       
+            app = docker.build("pontoriero3/addressbook-jenkins")    
+       }     
+       stage('Push image') {
+            docker.withRegistry('https://registry.hub.docker.com', 'git') {            
+                  app.push("${env.BUILD_NUMBER}")            
+                  app.push("latest")        
+            }    
+       }
+  }
 }
