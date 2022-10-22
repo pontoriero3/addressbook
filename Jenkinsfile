@@ -22,7 +22,6 @@ pipeline {
         steps {
           sh "docker push pontoriero3/myaddressbook"
           }    
-        }
      }
   }
 }
