@@ -2,8 +2,8 @@
 
 FROM eclipse-temurin:17-jdk-jammy
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+FROM bitnami/tomcat
+COPY addressbook.war /opt/bitnami/tomcat/webapps
 
 RUN ./mvnw dependency:resolve
 
