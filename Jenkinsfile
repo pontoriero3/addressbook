@@ -28,8 +28,8 @@ pipeline {
      stage('Deploy') {
          steps {
               script {
-                  withDockerRegistry([credentialsId: "docker-hub-credentials", url: 'https://registry.hub.docker.com']) {
-                  // docker.withRegistry('https://registry.hub.docker.com') {
+                  // withDockerRegistry([credentialsId: "docker-hub-credentials", url: 'https://registry.hub.docker.com']) {
+                  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                   app.push()
                   }
               }
