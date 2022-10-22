@@ -44,8 +44,8 @@ pipeline {
                    registryUrl           'https://registry.hub.docker.com'
                    registryCredentialsId 'docker-hub-credentials'
                  }
+               image.run()
                }
-            image.run()
          }
      }  
   }
