@@ -15,13 +15,13 @@ pipeline {
      }
      stage('Build image') {         
         steps {
-          app = docker.build("pontoriero3/addressbook-jenkins")    
+          docker.build("pontoriero3/addressbook-jenkins")    
        }
      }
      stage('Push image') {
         steps {
           docker.withRegistry('https://registry.hub.docker.com', 'git') {            
-          app.push("${env.BUILD_NUMBER}")            
+          app.push("pontoriero3/myaddressbook")            
           app.push("latest")        
           }    
         }
