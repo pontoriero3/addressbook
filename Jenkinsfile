@@ -28,7 +28,6 @@ pipeline {
      stage('Deploy') {
          steps {
               script {
-                  // withDockerRegistry([credentialsId: "docker-hub-credentials", url: 'https://registry.hub.docker.com']) {
                   docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                   app.push()
                   }
@@ -37,14 +36,16 @@ pipeline {
      }
      stage('Pull & Run App') {
          steps {
-              script {   
-                     docker run --name pontoriero3/addressbook-1 --restart=on-failure --detach ^
-                 --network jenkins --env DOCKER_HOST=tcp://docker:2376 ^
-                 --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 ^
-                 --volume jenkins-data:/var/jenkins_home ^
-                 --volume jenkins-docker-certs:/certs/client:ro ^
-                 --publish 8080:8080 --publish 50000:50000 myjenkins-pontoriero3/addressbook-1
-              }
+            
+            agent {
+                 docker {
+                   image                 'pontoriero3/addressbook-1'
+                   reuseNode              true
+                   registryUrl           'https://registry.hub.docker.com'
+                   registryCredentialsId 'docker-hub-credentials'
+                 }
+               }
+            image.run()
          }
      }  
   }
