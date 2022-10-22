@@ -16,7 +16,7 @@ pipeline {
      stage('Build') { 
          steps { 
              script{
-              app = docker.build("pontoriero3/addressbook")
+              app = docker.build("pontoriero3/addressbook-1")
              }
          }
      }
