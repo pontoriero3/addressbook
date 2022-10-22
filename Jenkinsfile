@@ -13,15 +13,26 @@ pipeline {
          sh "mvn compile"
        }
      }
-     stage('Build image') {         
-        steps {
-          sh "docker build ~/CICD-PipelineProject/docker-im -t myaddressbook:latest"  
-       }
+     stage('Build') { 
+         steps { 
+             script{
+              app = docker.build("underwater")
+             }
+         }
      }
-     stage('Push image') {
-        steps {
-          sh "docker push pontoriero3/myaddressbook"
-          }    
+     stage('Test'){
+         steps {
+              echo 'No tests at the moment...'
+         }
      }
+     stage('Deploy') {
+         steps {
+             script{
+                 docker.withRegistry('https://hub.docker.com') {
+                 app.push("${env.BUILD_NUMBER}")
+                 app.push("latest")
+                 }
+             }
+         }
   }
 }
