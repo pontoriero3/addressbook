@@ -80,6 +80,12 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.2.3.v20140905</version>
+		<configuration>
+		    <httpConnector>
+          		<!--host>localhost</host-->
+          		<port>9988</port>
+        	    </httpConnector>
+        	 </configuration>
             </plugin>
         </plugins>
     </build>
